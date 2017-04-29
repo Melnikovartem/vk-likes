@@ -39,19 +39,40 @@ class User():
         for i in own_likes:
             answer.append([likes[i], Show_name(i)])
         answer = bubble(answer)
-        print("Всего постов:", data['response'][0])
+        want = ''
+        want = want + "Всего постов: " + str(data['response'][0]) + "\n"
         for i in answer:
-            print(i[0], "это", end = " ")
+            want = want + str(i[0]) + " это" + " "
             proc = round(i[0]/data['response'][0] *100)
             if proc >= 10:
-                print(str(proc) + "% от всех постов", end = " ")
+                want = want + str(proc) + "% от всех постов"
             else:
-                print(" " + str(proc) + "% от всех постов", end = " ")
-            print("<-" , i[1])
-            
+                want = want + " " + str(proc) + "% от всех постов"
+            want = want + " <-" + i[1] + "\n"
+        return want
 
 if __name__ == '__main__':
-    Us = User("154044544")
-    Us.Wall()
-
-
+    friends = [
+        ["Таня",   "350537453"],#1 Таня Газина
+        ["Артем",  "154044544"],#2 Артем Мельников
+        ["Света",  "81122639"],#3 Света Сельдекова
+        #["Козьмин","2551535"], id не тот #4 Евгений Козьмин
+        ["Валера", "160121690"],#5 Валера Березовский
+        ["Варя",   "155311228"],#6 Варя Макаревич
+        ["Максим", "186801334"],#7 Максим Ященко
+        ["Миша",   "108598243"],#8 Миша Исаев
+        ["Леня",   "368620811"],#9 Леня Горский
+        ["Семен",  "238403397"],#10 Семен Буянов
+        ["Юра",    "184056688"],#11 Юра Зюзин
+        ["Ортем",  "239377714"],#12 Артем Спесивцев
+        ["МашаШ",  "161472358"]#13 Маша Шестопалова
+        ]
+    
+    for i in friends:
+        print(i[0])
+        con = open("friends/" + i[0]+".txt","w")
+        Us = User(i[1])
+        text = Us.Wall()
+        print(text)
+        con.write(text)
+    print("Все готово")
